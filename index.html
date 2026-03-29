@@ -19,6 +19,7 @@
         @keyframes sparkle { 0%, 100% { opacity: 0.4; transform: scale(1); } 50% { opacity: 1; transform: scale(1.2); filter: brightness(1.5); } }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes twinkle { 0%, 100% { opacity: 0.3; transform: scale(1); } 50% { opacity: 1; transform: scale(1.2); } }
+        @keyframes diamondReflect { 0% { left: -100%; } 100% { left: 100%; } }
 
         /* --- HEADER ROYAL FIXE --- */
         header {
@@ -82,7 +83,7 @@
         .hero h1 { font-family: 'Cinzel Decorative', serif; font-size: 2.5rem; margin: 0; color: var(--rose); letter-spacing: 4px; }
         .hero p { font-size: 1.1rem; margin-top: 10px; color: var(--noir); font-style: italic; font-weight: 300; }
 
-        /* --- NOUVELLE SECTION ABONNEMENTS ÉTOILÉS --- */
+        /* --- SECTION ABONNEMENTS ÉTOILÉS --- */
         .stars-section {
             background: radial-gradient(circle at center, #1a1a1a 0%, #000 100%);
             padding: 120px 5%; position: relative; overflow: hidden; text-align: center;
@@ -124,13 +125,21 @@
         .card ul li { margin-bottom: 15px; font-size: 0.9rem; display: flex; gap: 10px; align-items: center; }
         .card ul li::before { content: '✨'; color: var(--or); }
 
+        /* BOUTON AVEC EFFET DIAMANT */
         .btn-card {
             display: block; width: 100%; padding: 18px; background: var(--noir);
             color: white; text-decoration: none; border-radius: 15px; text-align: center;
             font-weight: 800; transition: 0.3s; margin-top: 30px; text-transform: uppercase;
+            position: relative; overflow: hidden; z-index: 1;
         }
         .popular .btn-card { background: var(--rose); }
-        .btn-card:hover { filter: brightness(1.2); transform: scale(1.02); }
+        .btn-card::after {
+            content: ''; position: absolute; top: 0; left: -100%; width: 50%; height: 100%;
+            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%);
+            transform: skewX(-25deg); z-index: -1;
+        }
+        .btn-card:hover::after { animation: diamondReflect 0.8s ease-in-out; }
+        .btn-card:hover { transform: scale(1.02); filter: brightness(1.1); }
 
         @media (max-width: 992px) {
             .menu-mobile-icon { display: flex; }
@@ -196,7 +205,7 @@
                 <li>Templates de structuration</li>
                 <li>Accès communauté privée</li>
             </ul>
-            <a href="connexion.html" class="btn-card">Choisir PLUME</a>
+            <a href="membre.html" class="btn-card">Choisir PLUME</a>
         </div>
 
         <div class="card popular">
@@ -209,7 +218,7 @@
                 <li>Correction d'un chapitre / semaine</li>
                 <li>Conseils pacing et structure</li>
             </ul>
-            <a href="connexion.html" class="btn-card">S'abonner à MANUSCRIT</a>
+            <a href="membre.html" class="btn-card">S'abonner à MANUSCRIT</a>
         </div>
 
         <div class="card">
@@ -221,13 +230,12 @@
                 <li>Suivi administratif & édition</li>
                 <li>Correction illimitée (15p/sem)</li>
             </ul>
-            <a href="connexion.html" class="btn-card">L'offre AUTEUR PRO</a>
+            <a href="membre.html" class="btn-card">L'offre AUTEUR PRO</a>
         </div>
     </div>
 </section>
 
 <script>
-    // Génération automatique des étoiles
     const starContainer = document.querySelector('.star-background');
     for (let i = 0; i < 60; i++) {
         const star = document.createElement('div');
