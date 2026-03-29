@@ -26,13 +26,12 @@
             position: fixed; top: 0; width: 100%;
             z-index: 9999;
             display: flex; 
-            justify-content: space-between; /* Un à gauche, un à droite */
-            align-items: center; /* Alignement vertical parfait */
+            justify-content: space-between;
+            align-items: center;
             box-shadow: 0 4px 25px rgba(0,0,0,0.1);
             border-bottom: 3px double var(--or);
         }
 
-        /* Conteneur pour forcer l'alignement du logo et du menu */
         .header-container {
             display: flex;
             justify-content: space-between;
@@ -46,16 +45,13 @@
         .logo-royal { 
             font-family: 'Cinzel Decorative', serif; font-size: 1.4rem; color: var(--rose); 
             text-transform: uppercase; text-decoration: none; letter-spacing: 3px; font-weight: 900;
-            white-space: nowrap; /* Empêche le titre de revenir à la ligne */
+            white-space: nowrap;
         }
 
+        /* --- NAVIGATION --- */
         nav ul { 
-            list-style: none; 
-            display: flex; 
-            gap: 15px; /* Espace entre les liens */
-            align-items: center; 
-            margin: 0; 
-            padding: 0;
+            list-style: none; display: flex; gap: 15px; align-items: center; margin: 0; padding: 0;
+            transition: 0.5s ease;
         }
         
         nav ul li a { 
@@ -74,6 +70,14 @@
         .crown { font-size: 1.1rem; animation: floatCrown 3s infinite ease-in-out; }
         .diamond-sparkle { position: absolute; top: 2px; right: 5px; animation: sparkle 2s infinite; font-size: 0.8rem; }
 
+        /* --- MOBILE BURGER --- */
+        .menu-mobile-icon {
+            display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 10px;
+        }
+        .menu-mobile-icon span {
+            width: 25px; height: 3px; background-color: var(--rose); border-radius: 10px; transition: 0.3s;
+        }
+
         /* --- ACCUEIL (HERO) --- */
         .hero { 
             height: 100vh;
@@ -82,7 +86,6 @@
             display: flex; flex-direction: column; justify-content: flex-end; align-items: center;
             padding-bottom: 60px; text-align: center;
         }
-
         .hero-text {
             background: rgba(255, 255, 255, 0.85); padding: 40px 60px; border-radius: 50px;
             backdrop-filter: blur(12px); box-shadow: 0 15px 50px rgba(0,0,0,0.2);
@@ -92,48 +95,42 @@
         .hero h1 { font-family: 'Cinzel Decorative', serif; font-size: 2.5rem; margin: 0; color: var(--rose); letter-spacing: 4px; }
         .hero p { font-size: 1.1rem; margin-top: 10px; color: var(--noir); font-style: italic; font-weight: 300; }
 
-        /* --- SECTION ABONNEMENTS ÉTOILÉS --- */
+        /* --- SECTION ABONNEMENTS --- */
         .stars-section {
             background: linear-gradient(180deg, #fff 0%, var(--pale) 100%);
             padding: 100px 5%; position: relative; overflow: hidden; text-align: center;
         }
-
-        .stars-section h2 { 
-            font-family: 'Cinzel Decorative', serif; font-size: 2.5rem; color: var(--rose); 
-            margin-bottom: 50px; position: relative; z-index: 2;
-        }
-
-        .star-field { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; }
-        .star { 
-            position: absolute; background: white; border-radius: 50%; opacity: 0; 
-            animation: sparkle infinite ease-in-out; box-shadow: 0 0 10px white;
-        }
-
+        .stars-section h2 { font-family: 'Cinzel Decorative', serif; font-size: 2.5rem; color: var(--rose); margin-bottom: 50px; z-index: 2; position: relative;}
         .grid {
             display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px; max-width: 1300px; margin: 0 auto; position: relative; z-index: 2;
         }
-
         .card {
             background: white; border-radius: 30px; padding: 50px 30px; color: var(--noir);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.08); transition: 0.4s;
-            text-align: left; border: 1px solid #eee;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.08); transition: 0.4s; text-align: left; border: 1px solid #eee;
         }
         .card:hover { transform: translateY(-15px); border-color: var(--or); }
-        .card h3 { font-family: 'Cinzel Decorative', serif; color: var(--rose); font-size: 1.6rem; margin-bottom: 10px; }
         .price { font-size: 2.2rem; font-weight: 800; color: var(--vert); display: block; margin-bottom: 25px; }
-        
-        .card ul { list-style: none; padding: 0; }
-        .card ul li { margin-bottom: 12px; display: flex; gap: 10px; font-size: 0.9rem; line-height: 1.4; }
-        .card ul li::before { content: '✦'; color: var(--or); }
-
         .btn-card {
             display: block; width: 100%; padding: 15px; background: var(--rose);
             color: white; text-decoration: none; border-radius: 12px; text-align: center;
-            font-weight: 800; margin-top: 25px; transition: 0.3s; border: none; cursor: pointer;
+            font-weight: 800; margin-top: 25px; transition: 0.3s;
         }
-        .btn-card:hover { filter: brightness(1.1); box-shadow: 0 8px 15px rgba(222,53,102,0.2); }
 
+        /* --- RESPONSIVE MOBILE (IMPORTANT) --- */
+        @media (max-width: 992px) {
+            .menu-mobile-icon { display: flex; }
+            nav ul {
+                position: fixed; top: 0; right: -100%; background: white;
+                width: 75%; height: 100vh; flex-direction: column;
+                justify-content: center; gap: 25px; box-shadow: -10px 0 30px rgba(0,0,0,0.1);
+                border-left: 3px solid var(--or);
+            }
+            nav ul.active { right: 0; }
+            .hero h1 { font-size: 1.8rem; }
+            .hero-text { padding: 30px; }
+            .logo-royal { font-size: 1.1rem; }
+        }
     </style>
 </head>
 <body>
@@ -143,8 +140,13 @@
         <div class="logo-box">
             <a href="index.html" class="logo-royal">AU-DELÀ DES PAGES</a>
         </div>
+        
+        <div class="menu-mobile-icon" onclick="toggleMenu()">
+            <span></span><span></span><span></span>
+        </div>
+
         <nav>
-            <ul>
+            <ul id="nav-menu">
                 <li><a href="index.html">Accueil</a></li>
                 <li><a href="boutique.html">Boutique</a></li>
                 <li><a href="couvertures.html">Couvertures</a></li>
@@ -153,9 +155,7 @@
                 <li><a href="contact.html">Contact</a></li>
                 <li>
                     <a href="membre.html" class="btn-membre-royal">
-                        <span class="crown">👑</span>
-                        ESPACE MEMBRE
-                        <span class="diamond-sparkle">✨</span>
+                        <span class="crown">👑</span> ESPACE MEMBRE <span class="diamond-sparkle">✨</span>
                     </a>
                 </li>
             </ul>
@@ -171,16 +171,7 @@
 </section>
 
 <section class="stars-section">
-    <div class="star-field">
-        <div class="star" style="top:15%; left:10%; width:6px; height:6px; animation-duration:3s;"></div>
-        <div class="star" style="top:25%; left:85%; width:4px; height:4px; animation-duration:4s;"></div>
-        <div class="star" style="top:75%; left:15%; width:8px; height:8px; animation-duration:5s;"></div>
-        <div class="star" style="top:55%; left:45%; width:5px; height:5px; animation-duration:3.5s;"></div>
-        <div class="star" style="top:80%; left:95%; width:7px; height:7px; animation-duration:4.5s;"></div>
-    </div>
-
     <h2>Nos Abonnements Étoilés</h2>
-
     <div class="grid">
         <div class="card">
             <h3>Plume</h3>
@@ -192,30 +183,34 @@
             </ul>
             <a href="#" class="btn-card">Choisir l'offre Plume</a>
         </div>
-
         <div class="card" style="border: 3px solid var(--or);">
             <h3>Manuscrit</h3>
             <span class="price">9€<small>/mois</small></span>
             <ul>
                 <li>Tout le pack Plume</li>
-                <li>Aide personnalisée directe</li>
+                <li>Aide personnalisée à la demande</li>
                 <li>Correction d'un chapitre / semaine</li>
             </ul>
             <a href="#" class="btn-card" style="background: var(--or);">S'abonner à Manuscrit</a>
         </div>
-
         <div class="card">
             <h3>Auteur Pro</h3>
             <span class="price">19.99€<small>/mois</small></span>
             <ul>
                 <li>Accompagnement éditorial total</li>
                 <li>Mise en page professionnelle</li>
-                <li>Aide administrative et édition</li>
+                <li>Suivi administratif étoilé</li>
             </ul>
             <a href="#" class="btn-card">L'offre Auteur Pro</a>
         </div>
     </div>
 </section>
+
+<script>
+    function toggleMenu() {
+        document.getElementById('nav-menu').classList.toggle('active');
+    }
+</script>
 
 </body>
 </html>
