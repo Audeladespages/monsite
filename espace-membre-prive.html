@@ -6,7 +6,7 @@
     <title>Mon Sanctuaire | Au-delà des Pages</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        :root { --rose: #DE3566; --or: #D4AF37; --noir: #1a1a1a; --gris-clair: #f9f9f9; }
+        :root { --rose: #DE3566; --or: #D4AF37; --noir: #1a1a1a; --gris-clair: #f4f4f4; }
         body { margin: 0; font-family: 'Poppins', sans-serif; background: #fdfbfb; color: var(--noir); }
 
         /* HEADER PRIVÉ */
@@ -18,52 +18,36 @@
         .user-info { font-size: 0.8rem; color: var(--rose); font-weight: 600; display: flex; align-items: center; gap: 15px; }
         .badge-abo { background: var(--rose); color: white; padding: 4px 12px; border-radius: 20px; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; }
 
-        .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
+        .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; min-height: 70vh; }
         h1 { font-family: 'Cinzel Decorative', serif; text-align: center; color: var(--rose); margin-bottom: 10px; }
-        .subtitle { text-align: center; color: #888; font-size: 0.9rem; margin-bottom: 40px; }
+        .subtitle { text-align: center; color: #888; font-size: 0.9rem; margin-bottom: 60px; }
 
-        /* SECTIONS DE FICHES */
-        .section-title { 
-            font-family: 'Cinzel Decorative', serif; border-bottom: 1px solid var(--or); 
-            padding-bottom: 10px; margin: 40px 0 20px; color: var(--or); font-size: 1.2rem;
-            display: flex; align-items: center; gap: 10px;
+        /* ETAT VIDE */
+        .empty-state {
+            text-align: center; padding: 60px 20px; background: white; border-radius: 30px;
+            border: 2px dashed #ddd; max-width: 600px; margin: 0 auto;
         }
+        .empty-icon { font-size: 4rem; display: block; margin-bottom: 20px; filter: grayscale(1); opacity: 0.5; }
+        .empty-state h3 { font-family: 'Cinzel Decorative', serif; color: var(--noir); margin-bottom: 10px; }
+        .empty-state p { color: #888; font-size: 0.9rem; line-height: 1.6; }
 
-        .library-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
+        /* GRILLE (PRÊTE POUR L'ADMIN) */
+        .library-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; margin-top: 30px; }
 
-        /* CARTE DE FICHE */
+        /* CARTE (GENEREE PAR JS) */
         .card {
             background: white; border-radius: 20px; padding: 25px; border: 1px solid #eee;
             box-shadow: 0 10px 20px rgba(0,0,0,0.05); transition: 0.3s; position: relative;
             display: flex; flex-direction: column;
         }
-        .card:hover { transform: translateY(-5px); border-color: var(--or); }
-        
-        /* État Verrouillé */
-        .card.locked { opacity: 0.6; background: #f2f2f2; filter: grayscale(1); pointer-events: none; }
+        .card.locked { opacity: 0.6; filter: grayscale(1); pointer-events: none; }
         .lock-overlay { 
             position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
-            display: none; flex-direction: column; justify-content: center; align-items: center;
-            background: rgba(255,255,255,0.8); border-radius: 20px; z-index: 10;
-        }
-        .locked .lock-overlay { display: flex; pointer-events: auto; }
-
-        .card-tag { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; color: var(--or); margin-bottom: 10px; }
-        .card-title { font-family: 'Cinzel Decorative', serif; font-size: 1.1rem; margin-bottom: 15px; }
-        
-        .btn-download {
-            background: var(--noir); color: white; text-decoration: none; padding: 12px;
-            border-radius: 10px; text-align: center; font-size: 0.85rem;
-            font-weight: 600; transition: 0.3s; margin-top: auto;
-        }
-        .btn-download:hover { background: var(--rose); }
-
-        .btn-upgrade {
-            background: var(--or); color: white; text-decoration: none; padding: 8px 15px;
-            border-radius: 8px; font-size: 0.75rem; font-weight: 700; margin-top: 10px;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            background: rgba(255,255,255,0.85); border-radius: 20px; z-index: 10;
         }
 
-        .logout { color: #888; text-decoration: none; font-size: 0.8rem; display: block; text-align: center; margin-top: 60px; }
+        .logout { color: #888; text-decoration: none; font-size: 0.8rem; display: block; text-align: center; margin-top: 60px; padding-bottom: 40px; }
     </style>
 </head>
 <body>
@@ -71,99 +55,69 @@
 <header>
     <div style="font-family: 'Cinzel Decorative'; font-weight: 700; color: var(--rose); font-size: 1.2rem;">ADP</div>
     <div class="user-info">
-        <span id="userName">Chargement...</span>
+        <span id="userName">Voyageur</span>
         <span id="userAboBadge" class="badge-abo">...</span>
     </div>
 </header>
 
 <div class="container">
     <h1>Votre Sanctuaire</h1>
-    <p class="subtitle">Accédez à vos ressources exclusives selon votre rang.</p>
+    <p class="subtitle">Vos fiches et outils d'écriture apparaîtront ici.</p>
 
-    <div class="section-title"><span>✒️</span> Fiches Techniques (Rang Plume)</div>
-    <div class="library-grid">
-        <div class="card" data-level="1">
-            <span class="card-tag">Structure</span>
-            <div class="card-title">Le Schéma Narratif Royal</div>
-            <p style="font-size: 0.8rem; color: #666;">Maîtrisez les 5 étapes pour captiver vos lecteurs dès le premier chapitre.</p>
-            <a href="#" class="btn-download" onclick="downloadFile('Schema-Narratif')">Télécharger la Fiche PDF</a>
+    <div id="sanctuaryContent">
+        <div class="empty-state">
+            <span class="empty-icon">📂</span>
+            <h3>Oups... c'est encore vide !</h3>
+            <p>Votre éditrice prépare actuellement vos précieuses ressources. <br> Revenez très bientôt pour découvrir vos premières fiches !</p>
         </div>
-        <div class="card" data-level="1">
-            <span class="card-tag">Outil</span>
-            <div class="card-title">Template de Fiche Personnage</div>
-            <p style="font-size: 0.8rem; color: #666;">Ne laissez plus vos héros au hasard. Creusez leur passé et leurs désirs.</p>
-            <a href="#" class="btn-download" onclick="downloadFile('Template-Perso')">Télécharger le Template</a>
-        </div>
+        
+        <div class="library-grid" id="fichesContainer">
+            </div>
     </div>
 
-    <div class="section-title"><span>📜</span> Secrets d'Auteur (Rang Manuscrit)</div>
-    <div class="library-grid">
-        <div class="card" data-level="2" id="card-pacing">
-            <div class="lock-overlay">
-                <span>🔒 Rang MANUSCRIT requis</span>
-                <a href="index.html#abonnements" class="btn-upgrade">Passer au rang supérieur</a>
-            </div>
-            <span class="card-tag">Pacing</span>
-            <div class="card-title">L'Art du Rythme : Éviter les Temps Morts</div>
-            <p style="font-size: 0.8rem; color: #666;">Analyse approfondie pour dynamiser vos récits de voyage et d'action.</p>
-            <a href="#" class="btn-download" onclick="downloadFile('Art-du-Rythme')">Télécharger l'Analyse</a>
-        </div>
-        <div class="card" data-level="2">
-            <div class="lock-overlay">
-                <span>🔒 Rang MANUSCRIT requis</span>
-                <a href="index.html#abonnements" class="btn-upgrade">Passer au rang supérieur</a>
-            </div>
-            <span class="card-tag">Dialogue</span>
-            <div class="card-title">Dialogues : Donner de la voix</div>
-            <p style="font-size: 0.8rem; color: #666;">Comment rendre vos personnages uniques à travers leur manière de parler.</p>
-            <a href="#" class="btn-download" onclick="downloadFile('Dialogues-Pro')">Télécharger la Leçon</a>
-        </div>
-    </div>
-
-    <div class="section-title"><span>👑</span> Professionnalisation (Rang Auteur)</div>
-    <div class="library-grid">
-        <div class="card" data-level="3">
-            <div class="lock-overlay">
-                <span>🔒 Rang AUTEUR PRO requis</span>
-                <a href="index.html#abonnements" class="btn-upgrade">Passer au rang supérieur</a>
-            </div>
-            <span class="card-tag">Édition</span>
-            <div class="card-title">Le Guide du Dossier d'Édition</div>
-            <p style="font-size: 0.8rem; color: #666;">Synopsis, lettre d'intention : tout pour séduire les maisons d'édition.</p>
-            <a href="#" class="btn-download" onclick="downloadFile('Dossier-Edition')">Télécharger le Guide</a>
-        </div>
-    </div>
-
-    <a href="index.html" class="logout" onclick="sessionStorage.clear()">Quitter le sanctuaire</a>
+    <a href="index.html" class="logout" onclick="sessionStorage.clear()">Quitter le sanctuaire royal</a>
 </div>
 
 <script>
-    // 1. Simulation de récupération des données membre
-    // Dans un vrai projet, ces données viennent de ta base de données après connexion
+    // 1. Récupération des données utilisateur
     const memberData = JSON.parse(sessionStorage.getItem('member_data')) || {
         prenom: "Voyageur",
-        email: "non-connecté",
-        abonnement: "Plume" // Valeurs possibles : "Plume", "Manuscrit", "Auteur"
+        email: "invité",
+        abonnement: "Plume"
     };
 
-    // 2. Affichage des infos
     document.getElementById('userName').innerText = "Bienvenue, " + memberData.prenom;
     document.getElementById('userAboBadge').innerText = "Rang " + memberData.abonnement;
 
-    // 3. Gestion des accès (Niveaux : Plume=1, Manuscrit=2, Auteur=3)
+    // 2. Logique d'affichage des fiches (Base de données locale)
+    const fichesList = JSON.parse(localStorage.getItem('adp_fiches')) || [];
+    const container = document.getElementById('fichesContainer');
+    const emptyState = document.querySelector('.empty-state');
+
     const levels = { "Plume": 1, "Manuscrit": 2, "Auteur": 3 };
-    const userLevel = levels[memberData.abonnement] || 0;
+    const userLevel = levels[memberData.abonnement] || 1;
 
-    document.querySelectorAll('.card').forEach(card => {
-        const requiredLevel = parseInt(card.getAttribute('data-level'));
-        if (userLevel < requiredLevel) {
-            card.classList.add('locked');
-        }
-    });
-
-    // 4. Fonction de téléchargement simulée
-    function downloadFile(fileName) {
-        alert("🛡️ Sécurité ADP :\nL'empreinte numérique de " + memberData.email + " a été intégrée au fichier " + fileName + ".pdf.\n\nLe téléchargement commence.");
+    if (fichesList.length > 0) {
+        emptyState.style.display = "none"; // On cache le message vide s'il y a des fiches
+        
+        fichesList.forEach(fiche => {
+            const isLocked = userLevel < parseInt(fiche.level);
+            const card = document.createElement('div');
+            card.className = `card ${isLocked ? 'locked' : ''}`;
+            
+            card.innerHTML = `
+                ${isLocked ? `
+                <div class="lock-overlay">
+                    <span style="font-size:1.5rem">🔒</span>
+                    <span style="font-size:0.7rem; font-weight:bold; color:var(--noir)">RANG SUPÉRIEUR REQUIS</span>
+                </div>` : ''}
+                <span style="font-size:0.6rem; color:var(--or); font-weight:800; text-transform:uppercase">Niveau ${fiche.level}</span>
+                <h3 style="font-family:'Cinzel Decorative'; font-size:1.1rem; margin:10px 0;">${fiche.title}</h3>
+                <p style="font-size:0.8rem; color:#666; flex-grow:1;">${fiche.desc}</p>
+                <a href="${fiche.url}" target="_blank" style="background:var(--noir); color:white; text-decoration:none; padding:10px; border-radius:8px; text-align:center; font-size:0.8rem; margin-top:15px;">Consulter</a>
+            `;
+            container.appendChild(card);
+        });
     }
 </script>
 
