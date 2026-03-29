@@ -10,16 +10,16 @@
             --jaune: #FCCC60; --vert: #728A2C; --noir: #2d2d2d;
         }
 
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        @keyframes fadeInScale {
+            from { opacity: 0; transform: scale(1.05); }
+            to { opacity: 1; transform: scale(1); }
         }
 
         body { font-family: 'Segoe UI', sans-serif; margin: 0; background: #fff; color: var(--noir); overflow-x: hidden; }
         
         /* NAVIGATION */
         nav { 
-            background: rgba(255, 255, 255, 0.95); padding: 15px 5%; display: flex; justify-content: space-between; 
+            background: rgba(255, 255, 255, 0.98); padding: 15px 5%; display: flex; justify-content: space-between; 
             align-items: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.05);
         }
         .logo { font-size: 1.2rem; font-weight: 800; color: var(--vert); text-decoration: none; }
@@ -28,53 +28,54 @@
         nav ul li a:hover { color: var(--rose); }
         .btn-membre { background: var(--rose); color: white !important; padding: 8px 15px; border-radius: 6px; }
 
-        /* HERO SECTION - CORRECTION DU ZOOM */
+        /* HERO SECTION - NETTETÉ OPTIMISÉE */
         .hero { 
-            height: 80vh;
-            /* On utilise "contain" ou un pourcentage pour éviter le flou du zoom */
-            background: linear-gradient(rgba(255,255,255,0.2), rgba(255,255,255,0.2)), 
-                        url('https://i.ibb.co/mrGks5fD/1000003691.png');
-            background-size: contain; /* L'image s'affiche en entier sans être étirée */
-            background-repeat: no-repeat;
-            background-position: center bottom;
-            background-color: #5b4d4d; /* Couleur de fond qui matche avec l'image pour les bords */
+            height: 75vh;
+            background: linear-gradient(rgba(0,0,0,0.1), rgba(0,0,0,0.1)), 
+                        url('https://i.ibb.co/4w7zyRhm/o-1jamq0ji48dr11lk9gn1lhd16k7m.png');
+            background-size: cover;
+            background-position: top center; /* Garde le haut de l'image (le chat) bien visible */
             display: flex; flex-direction: column; justify-content: center; align-items: center;
             text-align: center; padding: 0 20px;
+            animation: fadeInScale 1.2s ease-out;
         }
         
-        /* Conteneur de texte pour qu'il ressorte bien même si l'image est moins zoomée */
         .hero-text {
-            background: rgba(255, 255, 255, 0.7);
-            padding: 30px;
-            border-radius: 20px;
-            backdrop-filter: blur(5px);
-            animation: fadeInUp 1s ease-out;
+            background: rgba(255, 255, 255, 0.85);
+            padding: 40px;
+            border-radius: 30px;
+            backdrop-filter: blur(8px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
 
-        .hero h1 { font-size: 3rem; margin: 0; color: var(--rose); font-weight: 800; }
-        .hero p { font-size: 1.2rem; margin-top: 10px; color: var(--noir); font-weight: 400; }
+        .hero h1 { font-size: 3.5rem; margin: 0; color: var(--rose); font-weight: 800; letter-spacing: -1px; }
+        .hero p { font-size: 1.3rem; margin-top: 10px; color: var(--noir); font-weight: 400; font-style: italic; }
 
-        /* SECTION DÉGRADÉ */
+        /* SECTION SERVICES AVEC TON DÉGRADÉ */
         .services-section {
             background: linear-gradient(135deg, var(--pale), var(--jaune));
-            padding: 80px 5%; color: white; text-align: center;
+            padding: 100px 5%; color: white; text-align: center;
         }
+        .services-section h2 { font-size: 2.5rem; margin-bottom: 50px; text-shadow: 0 2px 10px rgba(0,0,0,0.1); }
 
         .grid-abonnements {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px; max-width: 1100px; margin: 40px auto 0;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px; max-width: 1200px; margin: 0 auto;
         }
         .card {
-            background: white; border-radius: 15px; padding: 30px; color: var(--noir);
-            box-shadow: 0 10px 20px rgba(0,0,0,0.05); transition: 0.3s;
+            background: white; border-radius: 20px; padding: 40px; color: var(--noir);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1); transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
-        .card:hover { transform: translateY(-10px); }
-        .card h3 { color: var(--rose); margin-top: 0; }
-        .price { font-size: 1.8rem; font-weight: 800; color: var(--vert); }
+        .card:hover { transform: translateY(-15px); }
+        .card h3 { color: var(--rose); margin-top: 0; font-size: 1.8rem; }
+        .price { font-size: 2rem; font-weight: 800; color: var(--vert); display: block; margin: 15px 0; }
+        
         .btn-card {
-            display: inline-block; width: 100%; padding: 12px; background: var(--rose); 
-            color: white; text-decoration: none; border-radius: 10px; font-weight: 700; margin-top: 20px;
+            display: inline-block; width: 100%; padding: 15px; background: var(--rose); 
+            color: white; text-decoration: none; border-radius: 12px; font-weight: 700; 
+            margin-top: 20px; transition: 0.3s;
         }
+        .btn-card:hover { background: var(--vert); transform: scale(1.02); }
     </style>
 </head>
 <body>
@@ -89,7 +90,7 @@
         <li><a href="#">Contact</a></li>
         <li><a href="#">Blog</a></li>
         <li><a href="#">Abonnements</a></li>
-        <li><a href="#">Informations</a></li>
+        <li><a href="#">Information</a></li>
         <li><a href="#" class="btn-membre">Espace Membre</a></li>
     </ul>
 </nav>
@@ -102,24 +103,24 @@
 </section>
 
 <section class="services-section">
-    <h2>Mes Abonnements</h2>
+    <h2>Mes Abonnements d'Auteurs</h2>
     <div class="grid-abonnements">
         <div class="card">
             <h3>Plume</h3>
-            <span class="price">4€/mois</span>
-            <p>Fiches pratiques et outils de structure.</p>
+            <span class="price">4€<small>/mois</small></span>
+            <p>Idéal pour structurer vos premières idées.</p>
             <a href="#" class="btn-card">S'abonner</a>
         </div>
-        <div class="card">
+        <div class="card" style="transform: scale(1.05); border: 2px solid var(--vert);">
             <h3>Manuscrit</h3>
-            <span class="price">9€/mois</span>
-            <p>Correction d'un chapitre par semaine.</p>
-            <a href="#" class="btn-card">S'abonner</a>
+            <span class="price">9€<small>/mois</small></span>
+            <p>Accompagnement et correction hebdomadaire.</p>
+            <a href="#" class="btn-card" style="background: var(--vert);">S'abonner</a>
         </div>
         <div class="card">
             <h3>Auteur</h3>
-            <span class="price">19.99€/mois</span>
-            <p>Mise en page pro et support complet.</p>
+            <span class="price">19.99€<small>/mois</small></span>
+            <p>Support complet pour une édition pro.</p>
             <a href="#" class="btn-card">S'abonner</a>
         </div>
     </div>
