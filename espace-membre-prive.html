@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mon Sanctuaire | Au-delà des Pages</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root { --rose: #DE3566; --or: #D4AF37; --noir: #1a1a1a; --diamant: #e0f7fa; }
+        body { margin: 0; font-family: 'Poppins', sans-serif; background: #fdfbfb; color: var(--noir); }
+
+        /* HEADER PRIVÉ */
+        header {
+            background: white; padding: 15px 5%; border-bottom: 2px solid var(--or);
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .user-info { font-size: 0.8rem; color: var(--rose); font-weight: 600; display: flex; align-items: center; gap: 10px; }
+        .badge-secure { background: var(--or); color: white; padding: 4px 10px; border-radius: 20px; font-size: 0.6rem; }
+
+        /* CONTENU */
+        .container { max-width: 1100px; margin: 50px auto; padding: 0 20px; }
+        h1 { font-family: 'Cinzel Decorative', serif; text-align: center; color: var(--rose); margin-bottom: 40px; }
+
+        /* BANDEAU SÉCURITÉ (DISSUASION) */
+        .security-alert {
+            background: #fff5f7; border: 1px dashed var(--rose); padding: 20px;
+            border-radius: 15px; margin-bottom: 40px; display: flex; align-items: center; gap: 20px;
+        }
+        .security-alert i { font-size: 2rem; }
+        .security-text { font-size: 0.85rem; line-height: 1.5; color: #555; }
+        .security-text b { color: var(--rose); }
+
+        /* GRILLE DE LIVRES */
+        .library-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
+        .book-card {
+            background: white; border-radius: 20px; padding: 25px; border: 1px solid #eee;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05); transition: 0.3s; position: relative;
+        }
+        .book-card:hover { transform: translateY(-5px); border-color: var(--or); }
+        .book-title { font-family: 'Cinzel Decorative', serif; font-size: 1.1rem; color: var(--noir); margin-bottom: 10px; }
+        
+        .download-zone { margin-top: 20px; padding-top: 15px; border-top: 1px solid #f5f5f5; }
+        
+        .btn-download {
+            background: var(--noir); color: white; text-decoration: none; padding: 12px;
+            border-radius: 10px; display: block; text-align: center; font-size: 0.85rem;
+            font-weight: 600; transition: 0.3s;
+        }
+        .btn-download:hover { background: var(--rose); }
+
+        /* FOOTER */
+        .logout { color: #888; text-decoration: none; font-size: 0.8rem; display: block; text-align: center; margin-top: 50px; }
+    </style>
+</head>
+<body>
+
+<header>
+    <div style="font-family: 'Cinzel Decorative'; font-weight: 700; color: var(--rose);">ADP</div>
+    <div class="user-info">
+        <span id="displayEmail">chargement...</span>
+        <span class="badge-secure">Connexion Sécurisée 🔒</span>
+    </div>
+</header>
+
+<div class="container">
+    <h1>Mon Sanctuaire Littéraire</h1>
+
+    <div class="security-alert">
+        <div style="font-size: 30px;">⚖️</div>
+        <div class="security-text">
+            <b>Protection Anti-Piratage Active :</b> Chaque fichier téléchargé depuis cet espace est marqué d'une 
+            <b>empreinte numérique invisible</b> liée à votre compte (<span id="traceEmail" style="font-weight:bold;"></span>). 
+            Toute diffusion non autorisée pourra être tracée jusqu'à la source.
+        </div>
+    </div>
+
+    <div class="library-grid">
+        <div class="book-card">
+            <div class="book-title">Héritage Royal, un secret caché</div>
+            <p style="font-size: 0.75rem; color: #888;">Format : PDF Haute Qualité</p>
+            <div class="download-zone">
+                <a href="#" class="btn-download" onclick="triggerTrace('Heritage Royal')">Télécharger mon exemplaire</a>
+            </div>
+        </div>
+
+        <div class="book-card">
+            <div class="book-title">37 degrés sous la peau</div>
+            <p style="font-size: 0.75rem; color: #888;">Statut : Précommande / Accès anticipé</p>
+            <div class="download-zone">
+                <a href="#" class="btn-download" onclick="triggerTrace('37 degres')">Télécharger mon exemplaire</a>
+            </div>
+        </div>
+    </div>
+
+    <a href="index.html" class="logout" onclick="sessionStorage.clear()">Déconnexion du coffre royal</a>
+</div>
+
+<script>
+    // Récupérer l'email de la session
+    const userEmail = sessionStorage.getItem('member_email') || "Membre Royal";
+    document.getElementById('displayEmail').innerText = userEmail;
+    document.getElementById('traceEmail').innerText = userEmail;
+
+    function triggerTrace(bookName) {
+        // Simulation du traçage
+        const date = new Date().toLocaleString();
+        alert("Génération de l'exemplaire personnalisé...\n\nLivre : " + bookName + "\nMarquage : " + userEmail + "\nDate : " + date + "\n\nLe téléchargement va commencer.");
+        // Ici, tu mettrais ton lien de téléchargement réel
+    }
+</script>
+
+</body>
+</html>
