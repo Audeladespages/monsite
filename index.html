@@ -18,8 +18,9 @@
         @keyframes floatCrown { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-6px) rotate(5deg); } }
         @keyframes sparkle { 0%, 100% { opacity: 0.4; transform: scale(1); } 50% { opacity: 1; transform: scale(1.2); filter: brightness(1.5); } }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes twinkle { 0%, 100% { opacity: 0.3; transform: scale(1); } 50% { opacity: 1; transform: scale(1.2); } }
 
-        /* --- HEADER ROYAL FIXE (H24) --- */
+        /* --- HEADER ROYAL FIXE --- */
         header {
             background: rgba(255, 255, 255, 0.98);
             padding: 10px 3%;
@@ -33,12 +34,8 @@
         }
 
         .header-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-            max-width: 1600px;
-            margin: 0 auto;
+            display: flex; justify-content: space-between; align-items: center;
+            width: 100%; max-width: 1600px; margin: 0 auto;
         }
 
         .logo-box { position: relative; padding: 5px 20px; }
@@ -48,12 +45,7 @@
             white-space: nowrap;
         }
 
-        /* --- NAVIGATION --- */
-        nav ul { 
-            list-style: none; display: flex; gap: 15px; align-items: center; margin: 0; padding: 0;
-            transition: 0.5s ease;
-        }
-        
+        nav ul { list-style: none; display: flex; gap: 15px; align-items: center; margin: 0; padding: 0; }
         nav ul li a { 
             text-decoration: none; color: var(--noir); font-weight: 600; font-size: 0.7rem; 
             text-transform: uppercase; transition: 0.3s; letter-spacing: 1px;
@@ -70,13 +62,8 @@
         .crown { font-size: 1.1rem; animation: floatCrown 3s infinite ease-in-out; }
         .diamond-sparkle { position: absolute; top: 2px; right: 5px; animation: sparkle 2s infinite; font-size: 0.8rem; }
 
-        /* --- MOBILE BURGER --- */
-        .menu-mobile-icon {
-            display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 10px;
-        }
-        .menu-mobile-icon span {
-            width: 25px; height: 3px; background-color: var(--rose); border-radius: 10px; transition: 0.3s;
-        }
+        .menu-mobile-icon { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 10px; }
+        .menu-mobile-icon span { width: 25px; height: 3px; background-color: var(--rose); border-radius: 10px; }
 
         /* --- ACCUEIL (HERO) --- */
         .hero { 
@@ -95,41 +82,66 @@
         .hero h1 { font-family: 'Cinzel Decorative', serif; font-size: 2.5rem; margin: 0; color: var(--rose); letter-spacing: 4px; }
         .hero p { font-size: 1.1rem; margin-top: 10px; color: var(--noir); font-style: italic; font-weight: 300; }
 
-        /* --- SECTION ABONNEMENTS --- */
+        /* --- NOUVELLE SECTION ABONNEMENTS ÉTOILÉS --- */
         .stars-section {
-            background: linear-gradient(180deg, #fff 0%, var(--pale) 100%);
-            padding: 100px 5%; position: relative; overflow: hidden; text-align: center;
+            background: radial-gradient(circle at center, #1a1a1a 0%, #000 100%);
+            padding: 120px 5%; position: relative; overflow: hidden; text-align: center;
         }
-        .stars-section h2 { font-family: 'Cinzel Decorative', serif; font-size: 2.5rem; color: var(--rose); margin-bottom: 50px; z-index: 2; position: relative;}
-        .grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px; max-width: 1300px; margin: 0 auto; position: relative; z-index: 2;
-        }
-        .card {
-            background: white; border-radius: 30px; padding: 50px 30px; color: var(--noir);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.08); transition: 0.4s; text-align: left; border: 1px solid #eee;
-        }
-        .card:hover { transform: translateY(-15px); border-color: var(--or); }
-        .price { font-size: 2.2rem; font-weight: 800; color: var(--vert); display: block; margin-bottom: 25px; }
-        .btn-card {
-            display: block; width: 100%; padding: 15px; background: var(--rose);
-            color: white; text-decoration: none; border-radius: 12px; text-align: center;
-            font-weight: 800; margin-top: 25px; transition: 0.3s;
+        .star-background { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
+        .star-bg { position: absolute; background: white; border-radius: 50%; opacity: 0.3; animation: twinkle var(--duration) infinite ease-in-out; }
+
+        .stars-section h2 { 
+            font-family: 'Cinzel Decorative', serif; font-size: 2.8rem; color: var(--or); 
+            margin-bottom: 60px; position: relative; z-index: 2;
+            text-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
         }
 
-        /* --- RESPONSIVE MOBILE (IMPORTANT) --- */
+        .grid {
+            display: flex; justify-content: center; align-items: stretch; flex-wrap: wrap;
+            gap: 30px; max-width: 1300px; margin: 0 auto; position: relative; z-index: 2;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.95); border-radius: 30px; padding: 50px 30px; 
+            width: 350px; transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 2px solid transparent; display: flex; flex-direction: column; position: relative; text-align: left;
+        }
+        .card:hover { transform: translateY(-20px); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
+
+        .card.popular { border: 3px solid var(--or); background: white; transform: scale(1.05); }
+        .popular-badge {
+            position: absolute; top: -20px; left: 50%; transform: translateX(-50%);
+            background: linear-gradient(135deg, var(--or), #fccc60); color: #000;
+            padding: 8px 25px; border-radius: 50px; font-size: 0.75rem; font-weight: 900;
+            text-transform: uppercase; box-shadow: 0 5px 15px rgba(0,0,0,0.2); letter-spacing: 1px;
+        }
+
+        .card h3 { font-family: 'Cinzel Decorative', serif; color: var(--rose); font-size: 1.6rem; margin: 10px 0; text-transform: uppercase; }
+        .price { font-size: 2.5rem; font-weight: 800; color: var(--vert); margin-bottom: 25px; display: block; }
+        .price small { font-size: 1rem; color: #666; }
+
+        .card ul { list-style: none; padding: 0; margin: 0; flex-grow: 1; }
+        .card ul li { margin-bottom: 15px; font-size: 0.9rem; display: flex; gap: 10px; align-items: center; }
+        .card ul li::before { content: '✨'; color: var(--or); }
+
+        .btn-card {
+            display: block; width: 100%; padding: 18px; background: var(--noir);
+            color: white; text-decoration: none; border-radius: 15px; text-align: center;
+            font-weight: 800; transition: 0.3s; margin-top: 30px; text-transform: uppercase;
+        }
+        .popular .btn-card { background: var(--rose); }
+        .btn-card:hover { filter: brightness(1.2); transform: scale(1.02); }
+
         @media (max-width: 992px) {
             .menu-mobile-icon { display: flex; }
             nav ul {
                 position: fixed; top: 0; right: -100%; background: white;
                 width: 75%; height: 100vh; flex-direction: column;
                 justify-content: center; gap: 25px; box-shadow: -10px 0 30px rgba(0,0,0,0.1);
-                border-left: 3px solid var(--or);
+                border-left: 3px solid var(--or); z-index: 10000;
             }
             nav ul.active { right: 0; }
-            .hero h1 { font-size: 1.8rem; }
-            .hero-text { padding: 30px; }
-            .logo-royal { font-size: 1.1rem; }
+            .card.popular { transform: scale(1); }
         }
     </style>
 </head>
@@ -154,7 +166,7 @@
                 <li><a href="blog.html">Blog</a></li>
                 <li><a href="contact.html">Contact</a></li>
                 <li>
-                    <a href="membre.html" class="btn-membre-royal">
+                    <a href="connexion.html" class="btn-membre-royal">
                         <span class="crown">👑</span> ESPACE MEMBRE <span class="diamond-sparkle">✨</span>
                     </a>
                 </li>
@@ -171,42 +183,65 @@
 </section>
 
 <section class="stars-section">
+    <div class="star-background"></div>
+
     <h2>Nos Abonnements Étoilés</h2>
+
     <div class="grid">
         <div class="card">
-            <h3>Plume</h3>
+            <h3>PLUME</h3>
             <span class="price">4€<small>/mois</small></span>
             <ul>
                 <li>Fiches pratiques hebdomadaires</li>
                 <li>Templates de structuration</li>
                 <li>Accès communauté privée</li>
             </ul>
-            <a href="#" class="btn-card">Choisir l'offre Plume</a>
+            <a href="connexion.html" class="btn-card">Choisir PLUME</a>
         </div>
-        <div class="card" style="border: 3px solid var(--or);">
-            <h3>Manuscrit</h3>
+
+        <div class="card popular">
+            <div class="popular-badge">✨ Le plus populaire ✨</div>
+            <h3>MANUSCRIT</h3>
             <span class="price">9€<small>/mois</small></span>
             <ul>
-                <li>Tout le pack Plume</li>
+                <li>Tout le pack PLUME</li>
                 <li>Aide personnalisée à la demande</li>
                 <li>Correction d'un chapitre / semaine</li>
+                <li>Conseils pacing et structure</li>
             </ul>
-            <a href="#" class="btn-card" style="background: var(--or);">S'abonner à Manuscrit</a>
+            <a href="connexion.html" class="btn-card">S'abonner à MANUSCRIT</a>
         </div>
+
         <div class="card">
-            <h3>Auteur Pro</h3>
+            <h3>AUTEUR PRO</h3>
             <span class="price">19.99€<small>/mois</small></span>
             <ul>
                 <li>Accompagnement éditorial total</li>
                 <li>Mise en page professionnelle</li>
-                <li>Suivi administratif étoilé</li>
+                <li>Suivi administratif & édition</li>
+                <li>Correction illimitée (15p/sem)</li>
             </ul>
-            <a href="#" class="btn-card">L'offre Auteur Pro</a>
+            <a href="connexion.html" class="btn-card">L'offre AUTEUR PRO</a>
         </div>
     </div>
 </section>
 
 <script>
+    // Génération automatique des étoiles
+    const starContainer = document.querySelector('.star-background');
+    for (let i = 0; i < 60; i++) {
+        const star = document.createElement('div');
+        star.className = 'star-bg';
+        const size = Math.random() * 3 + 'px';
+        star.style.width = size;
+        star.style.height = size;
+        star.style.top = Math.random() * 100 + '%';
+        star.style.left = Math.random() * 100 + '%';
+        star.style.setProperty('--duration', (Math.random() * 3 + 2) + 's');
+        star.style.animationDelay = Math.random() * 5 + 's';
+        starContainer.appendChild(star);
+    }
+
     function toggleMenu() {
         document.getElementById('nav-menu').classList.toggle('active');
     }
