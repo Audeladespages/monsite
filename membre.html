@@ -11,30 +11,30 @@
             margin: 0; font-family: 'Poppins', sans-serif; 
             background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
             display: flex; justify-content: center; align-items: center; height: 100vh;
+            overflow: hidden;
         }
 
-        /* LE COFFRE DE CONNEXION */
         .login-vault {
-            background: white; padding: 60px; border-radius: 40px;
+            background: white; padding: 50px; border-radius: 40px;
             box-shadow: 0 20px 60px rgba(0,0,0,0.1);
             border: 3px double var(--or); text-align: center;
             max-width: 450px; width: 90%; position: relative;
+            animation: fadeInUp 1s ease-out;
         }
 
-        .login-vault h1 {
-            font-family: 'Cinzel Decorative', serif; color: var(--rose);
-            font-size: 1.8rem; text-transform: uppercase; margin-bottom: 10px;
-        }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        .crown-icon { font-size: 3rem; margin-bottom: 20px; display: block; filter: drop-shadow(0 0 5px var(--or)); }
+        .logo-royal { font-family: 'Cinzel Decorative', serif; color: var(--rose); font-size: 1.5rem; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 5px; }
+        .crown-icon { font-size: 2.5rem; margin-bottom: 10px; display: block; animation: float 3s infinite ease-in-out; }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
 
         .input-group { margin-bottom: 20px; text-align: left; }
-        .input-group label { display: block; font-weight: 600; font-size: 0.8rem; color: var(--or); text-transform: uppercase; margin-bottom: 5px; }
+        .input-group label { display: block; font-weight: 600; font-size: 0.75rem; color: var(--or); text-transform: uppercase; margin-bottom: 8px; letter-spacing: 1px; }
         .input-group input { 
             width: 100%; padding: 15px; border-radius: 12px; border: 1px solid #eee;
-            background: #f9f9f9; outline: none; transition: 0.3s;
+            background: #f9f9f9; outline: none; transition: 0.3s; font-family: 'Poppins';
         }
-        .input-group input:focus { border-color: var(--rose); box-shadow: 0 0 10px rgba(222, 53, 102, 0.1); }
+        .input-group input:focus { border-color: var(--rose); background: #fff; }
 
         .btn-royal-login {
             background: var(--rose); color: white; border: none; width: 100%;
@@ -42,34 +42,46 @@
             text-transform: uppercase; letter-spacing: 2px; transition: 0.4s;
             box-shadow: 0 10px 20px rgba(222, 53, 102, 0.2);
         }
-        .btn-royal-login:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(222, 53, 102, 0.4); }
+        .btn-royal-login:hover { transform: scale(1.02); background: #b02a50; }
 
-        .back-link { margin-top: 25px; display: block; color: #888; text-decoration: none; font-size: 0.8rem; transition: 0.3s; }
-        .back-link:hover { color: var(--rose); }
-
+        .security-note { font-size: 0.7rem; color: #aaa; margin-top: 20px; display: flex; align-items: center; justify-content: center; gap: 5px; }
     </style>
 </head>
 <body>
 
     <div class="login-vault">
         <span class="crown-icon">👑</span>
-        <h1>Accès Membre</h1>
-        <p style="color: #666; font-style: italic; margin-bottom: 30px;">Entrez dans votre sanctuaire littéraire</p>
+        <div class="logo-royal">Au-delà des Pages</div>
+        <p style="color: #666; font-size: 0.9rem; font-style: italic; margin-bottom: 30px;">Accès sécurisé au sanctuaire</p>
         
-        <form>
+        <form id="loginForm">
             <div class="input-group">
-                <label>Identifiant Royal</label>
-                <input type="email" placeholder="votre@email.com">
+                <label>Identifiant Royal (Email)</label>
+                <input type="email" id="userEmail" placeholder="votre@email.com" required>
             </div>
             <div class="input-group">
                 <label>Clé Secrète</label>
-                <input type="password" placeholder="••••••••">
+                <input type="password" id="userPass" placeholder="••••••••" required>
             </div>
-            <button type="button" class="btn-royal-login">Ouvrir le Coffre ✨</button>
+            <button type="submit" class="btn-royal-login">Ouvrir le Coffre ✨</button>
         </form>
 
-        <a href="index.html" class="back-link">← Retourner à l'accueil</a>
+        <div class="security-note">
+            <span>🔒</span> Téléchargements tracés par empreinte numérique (Anti-piratage)
+        </div>
+        
+        <a href="index.html" style="margin-top: 25px; display: block; color: #888; text-decoration: none; font-size: 0.8rem;">← Retour à l'accueil</a>
     </div>
 
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('userEmail').value;
+            // Ici, on stocke l'email dans la session pour marquer les futurs téléchargements
+            sessionStorage.setItem('member_email', email);
+            alert("Connexion réussie ! Vos futurs téléchargements seront marqués au nom de : " + email);
+            window.location.href = 'espace-membre-prive.html'; 
+        });
+    </script>
 </body>
 </html>
