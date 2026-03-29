@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Accès Privé | Au-delà des Pages</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Poppins:wght@400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
         :root { --rose: #DE3566; --or: #D4AF37; --noir: #1a1a1a; }
         body { 
@@ -11,44 +11,74 @@
             background: radial-gradient(circle, #2a2a2a 0%, #1a1a1a 100%); font-family: 'Poppins', sans-serif;
         }
         .login-card {
-            background: white; padding: 40px; border-radius: 20px; border: 2px solid var(--or);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5); width: 350px; text-align: center;
+            background: white; padding: 40px; border-radius: 25px; border: 2px solid var(--or);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5); width: 380px; text-align: center;
         }
         h2 { font-family: 'Cinzel Decorative'; color: var(--rose); margin-bottom: 30px; }
         input { 
-            width: 100%; padding: 12px; margin-bottom: 20px; border-radius: 8px; 
-            border: 1px solid #ddd; box-sizing: border-box;
+            width: 100%; padding: 12px; margin-bottom: 20px; border-radius: 10px; 
+            border: 1px solid #ddd; box-sizing: border-box; font-family: inherit;
         }
         .btn-login {
             background: var(--noir); color: white; border: none; width: 100%; 
-            padding: 15px; border-radius: 8px; font-weight: 800; cursor: pointer; transition: 0.3s;
+            padding: 15px; border-radius: 10px; font-weight: 800; cursor: pointer; transition: 0.3s;
         }
-        .btn-login:hover { background: var(--rose); transform: scale(1.02); }
+        .btn-login:hover { background: var(--rose); transform: translateY(-2px); }
+
+        /* Fenêtre de choix pour l'Admin */
+        #adminChoice { display: none; margin-top: 20px; border-top: 1px solid #eee; padding-top: 20px; }
+        .choice-title { font-size: 0.8rem; color: var(--or); font-weight: 800; text-transform: uppercase; margin-bottom: 15px; }
+        .btn-choice {
+            display: block; width: 100%; padding: 12px; margin-bottom: 10px; border-radius: 8px;
+            text-decoration: none; font-weight: 600; font-size: 0.9rem; transition: 0.2s;
+        }
+        .btn-admin { background: var(--rose); color: white; border: 2px solid var(--rose); }
+        .btn-member { background: white; color: var(--noir); border: 2px solid var(--noir); }
+        .btn-choice:hover { opacity: 0.8; }
     </style>
 </head>
 <body>
 
 <div class="login-card">
-    <h2>Console Royale</h2>
-    <input type="email" id="adminEmail" placeholder="Email Professionnel">
-    <input type="password" id="adminPass" placeholder="Mot de passe secret">
-    <button class="btn-login" onclick="checkAccess()">Entrer dans la Tour</button>
-    <p id="error" style="color: red; font-size: 0.7rem; margin-top: 15px; display: none;">Accès refusé. Identifiants incorrects.</p>
+    <div id="loginFields">
+        <h2>Accès au Royaume</h2>
+        <input type="email" id="userEmail" placeholder="Votre Email">
+        <input type="password" id="userPass" placeholder="Mot de passe">
+        <button class="btn-login" onclick="checkAccess()">Ouvrir les Portes</button>
+        <p id="error" style="color: red; font-size: 0.75rem; margin-top: 15px; display: none;">Identifiants incorrects.</p>
+    </div>
+
+    <div id="adminChoice">
+        <h2>Bienvenue Elisa</h2>
+        <p class="choice-title">Où souhaitez-vous vous rendre ?</p>
+        <a href="dashboard.html" class="btn-choice btn-admin">📊 Gérer la Maison d'Édition</a>
+        <a href="membre.html" class="btn-choice btn-member">📖 Voir mon Espace Membre</a>
+    </div>
 </div>
 
 <script>
     function checkAccess() {
-        const email = document.getElementById('adminEmail').value;
-        const pass = document.getElementById('adminPass').value;
+        const email = document.getElementById('userEmail').value;
+        const pass = document.getElementById('userPass').value;
+        const errorMsg = document.getElementById('error');
 
-        // Tes identifiants ultra-secrets
-        if(email === "audeladespages.contact@gmail.com" && pass === "Mvmanon16!!!!!!!!!!!!!!!!!!!!!!!!!!!!!") {
-            // On crée un petit jeton de session pour dire que tu es connectée
+        // 1. VERIFICATION ADMIN (TOI)
+        if(email === "audeladespages.contact@gmail.com" && pass === "Mvmanon16!") {
             sessionStorage.setItem('admin_auth', 'true');
-            // On te redirige vers ton Dashboard
-            window.location.href = "dashboard.html"; 
+            // On cache le login et on montre le choix
+            document.getElementById('loginFields').style.display = "none";
+            document.getElementById('adminChoice').style.display = "block";
+            return;
+        }
+
+        // 2. VERIFICATION MEMBRE CLASSIQUE (Simulation)
+        // Ici tu peux ajouter tes autres membres ou une condition générale
+        if(pass === "membre2026") { 
+            const fakeMember = { prenom: "Auteur Voyageur", abonnement: "Plume" };
+            sessionStorage.setItem('member_data', JSON.stringify(fakeMember));
+            window.location.href = "membre.html";
         } else {
-            document.getElementById('error').style.display = "block";
+            errorMsg.style.display = "block";
         }
     }
 </script>
