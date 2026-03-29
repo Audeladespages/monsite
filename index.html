@@ -18,7 +18,6 @@
         @keyframes floatCrown { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-6px) rotate(5deg); } }
         @keyframes sparkle { 0%, 100% { opacity: 0.4; transform: scale(1); } 50% { opacity: 1; transform: scale(1.2); filter: brightness(1.5); } }
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes shine { from { left: -100%; } to { left: 100%; } }
 
         /* --- HEADER ROYAL FIXE (H24) --- */
         header {
@@ -26,36 +25,54 @@
             padding: 10px 3%;
             position: fixed; top: 0; width: 100%;
             z-index: 9999;
-            display: flex; justify-content: space-between; align-items: center;
+            display: flex; 
+            justify-content: space-between; /* Un à gauche, un à droite */
+            align-items: center; /* Alignement vertical parfait */
             box-shadow: 0 4px 25px rgba(0,0,0,0.1);
             border-bottom: 3px double var(--or);
         }
 
-        .logo-box { position: relative; padding: 10px 40px; }
-        .logo-box::before { 
-            content: ''; position: absolute; border: 2px solid var(--or); border-radius: 50%; 
-            width: 120%; height: 160%; top: -30%; left: -10%; opacity: 0.25; border-style: double; 
-        }
-        .logo-royal { 
-            font-family: 'Cinzel Decorative', serif; font-size: 1.6rem; color: var(--rose); 
-            text-transform: uppercase; text-decoration: none; letter-spacing: 4px; font-weight: 900;
+        /* Conteneur pour forcer l'alignement du logo et du menu */
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            max-width: 1600px;
+            margin: 0 auto;
         }
 
-        nav ul { list-style: none; display: flex; gap: 20px; align-items: center; margin: 0; }
+        .logo-box { position: relative; padding: 5px 20px; }
+        .logo-royal { 
+            font-family: 'Cinzel Decorative', serif; font-size: 1.4rem; color: var(--rose); 
+            text-transform: uppercase; text-decoration: none; letter-spacing: 3px; font-weight: 900;
+            white-space: nowrap; /* Empêche le titre de revenir à la ligne */
+        }
+
+        nav ul { 
+            list-style: none; 
+            display: flex; 
+            gap: 15px; /* Espace entre les liens */
+            align-items: center; 
+            margin: 0; 
+            padding: 0;
+        }
+        
         nav ul li a { 
-            text-decoration: none; color: var(--noir); font-weight: 600; font-size: 0.75rem; 
+            text-decoration: none; color: var(--noir); font-weight: 600; font-size: 0.7rem; 
             text-transform: uppercase; transition: 0.3s; letter-spacing: 1px;
         }
         nav ul li a:hover { color: var(--or); }
 
         .btn-membre-royal {
             background: linear-gradient(135deg, #fff, #f9f9f9);
-            color: var(--rose) !important; padding: 12px 25px; border-radius: 50px;
-            border: 2px solid var(--or); font-weight: 800; display: flex; align-items: center; gap: 10px;
-            position: relative; overflow: hidden; box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+            color: var(--rose) !important; padding: 10px 18px; border-radius: 50px;
+            border: 2px solid var(--or); font-weight: 800; display: flex; align-items: center; gap: 8px;
+            position: relative; overflow: hidden; box-shadow: 0 5px 15px rgba(212, 175, 55, 0.2);
+            font-size: 0.7rem;
         }
-        .crown { font-size: 1.4rem; animation: floatCrown 3s infinite ease-in-out; }
-        .diamond-sparkle { position: absolute; top: 2px; right: 8px; animation: sparkle 2s infinite; }
+        .crown { font-size: 1.1rem; animation: floatCrown 3s infinite ease-in-out; }
+        .diamond-sparkle { position: absolute; top: 2px; right: 5px; animation: sparkle 2s infinite; font-size: 0.8rem; }
 
         /* --- ACCUEIL (HERO) --- */
         .hero { 
@@ -63,61 +80,59 @@
             background: #5b4d4d url('https://i.ibb.co/4w7zyRhm/o-1jamq0ji48dr11lk9gn1lhd16k7m.png') no-repeat center bottom;
             background-size: cover;
             display: flex; flex-direction: column; justify-content: flex-end; align-items: center;
-            padding-bottom: 80px; text-align: center;
+            padding-bottom: 60px; text-align: center;
         }
 
         .hero-text {
-            background: rgba(255, 255, 255, 0.85); padding: 50px 80px; border-radius: 60px;
+            background: rgba(255, 255, 255, 0.85); padding: 40px 60px; border-radius: 50px;
             backdrop-filter: blur(12px); box-shadow: 0 15px 50px rgba(0,0,0,0.2);
-            max-width: 900px; animation: fadeInUp 1.5s ease-out; border: 1px solid rgba(212,175,55,0.3);
+            max-width: 850px; animation: fadeInUp 1.5s ease-out; border: 1px solid rgba(212,175,55,0.3);
+            margin: 0 20px;
         }
-        .hero h1 { font-family: 'Cinzel Decorative', serif; font-size: 3rem; margin: 0; color: var(--rose); letter-spacing: 5px; }
-        .hero p { font-size: 1.3rem; margin-top: 15px; color: var(--noir); font-style: italic; font-weight: 300; }
+        .hero h1 { font-family: 'Cinzel Decorative', serif; font-size: 2.5rem; margin: 0; color: var(--rose); letter-spacing: 4px; }
+        .hero p { font-size: 1.1rem; margin-top: 10px; color: var(--noir); font-style: italic; font-weight: 300; }
 
-        /* --- SECTION ABONNEMENTS ÉTOILÉS (LONGUEUR) --- */
+        /* --- SECTION ABONNEMENTS ÉTOILÉS --- */
         .stars-section {
             background: linear-gradient(180deg, #fff 0%, var(--pale) 100%);
-            padding: 120px 5%; position: relative; overflow: hidden; text-align: center;
+            padding: 100px 5%; position: relative; overflow: hidden; text-align: center;
         }
 
         .stars-section h2 { 
-            font-family: 'Cinzel Decorative', serif; font-size: 2.8rem; color: var(--rose); 
-            margin-bottom: 60px; position: relative; z-index: 2;
+            font-family: 'Cinzel Decorative', serif; font-size: 2.5rem; color: var(--rose); 
+            margin-bottom: 50px; position: relative; z-index: 2;
         }
 
-        /* Animation des étoiles blanches */
         .star-field { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; }
         .star { 
             position: absolute; background: white; border-radius: 50%; opacity: 0; 
             animation: sparkle infinite ease-in-out; box-shadow: 0 0 10px white;
         }
 
-        /* GRILLE DE CARTES */
         .grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 40px; max-width: 1400px; margin: 0 auto; position: relative; z-index: 2;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px; max-width: 1300px; margin: 0 auto; position: relative; z-index: 2;
         }
 
         .card {
-            background: white; border-radius: 30px; padding: 60px 40px; color: var(--noir);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1); transition: 0.4s;
+            background: white; border-radius: 30px; padding: 50px 30px; color: var(--noir);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.08); transition: 0.4s;
             text-align: left; border: 1px solid #eee;
         }
-        .card:hover { transform: translateY(-20px); border-color: var(--or); }
-
-        .card h3 { font-family: 'Cinzel Decorative', serif; color: var(--rose); font-size: 1.8rem; margin-bottom: 10px; }
-        .price { font-size: 2.5rem; font-weight: 800; color: var(--vert); display: block; margin-bottom: 30px; }
+        .card:hover { transform: translateY(-15px); border-color: var(--or); }
+        .card h3 { font-family: 'Cinzel Decorative', serif; color: var(--rose); font-size: 1.6rem; margin-bottom: 10px; }
+        .price { font-size: 2.2rem; font-weight: 800; color: var(--vert); display: block; margin-bottom: 25px; }
         
         .card ul { list-style: none; padding: 0; }
-        .card ul li { margin-bottom: 15px; display: flex; gap: 10px; font-size: 0.95rem; line-height: 1.5; }
+        .card ul li { margin-bottom: 12px; display: flex; gap: 10px; font-size: 0.9rem; line-height: 1.4; }
         .card ul li::before { content: '✦'; color: var(--or); }
 
         .btn-card {
-            display: block; width: 100%; padding: 18px; background: var(--rose);
-            color: white; text-decoration: none; border-radius: 15px; text-align: center;
-            font-weight: 800; margin-top: 30px; transition: 0.3s; border: none; cursor: pointer;
+            display: block; width: 100%; padding: 15px; background: var(--rose);
+            color: white; text-decoration: none; border-radius: 12px; text-align: center;
+            font-weight: 800; margin-top: 25px; transition: 0.3s; border: none; cursor: pointer;
         }
-        .btn-card:hover { filter: brightness(1.2); box-shadow: 0 10px 20px rgba(222,53,102,0.3); }
+        .btn-card:hover { filter: brightness(1.1); box-shadow: 0 8px 15px rgba(222,53,102,0.2); }
 
     </style>
 </head>
@@ -126,16 +141,18 @@
 <header>
     <div class="header-container">
         <div class="logo-box">
-            <a href="index.html" class="logo-royal">Au-delà des Pages</a>
+            <a href="index.html" class="logo-royal">AU-DELÀ DES PAGES</a>
         </div>
         <nav>
             <ul>
                 <li><a href="index.html">Accueil</a></li>
                 <li><a href="boutique.html">Boutique</a></li>
+                <li><a href="couvertures.html">Couvertures</a></li>
                 <li><a href="abonnements.html">Abonnements</a></li>
+                <li><a href="blog.html">Blog</a></li>
                 <li><a href="contact.html">Contact</a></li>
                 <li>
-                    <a href="#" class="btn-membre-royal">
+                    <a href="membre.html" class="btn-membre-royal">
                         <span class="crown">👑</span>
                         ESPACE MEMBRE
                         <span class="diamond-sparkle">✨</span>
@@ -155,11 +172,11 @@
 
 <section class="stars-section">
     <div class="star-field">
-        <div class="star" style="top:10%; left:15%; width:6px; height:6px; animation-duration:3s;"></div>
-        <div class="star" style="top:30%; left:80%; width:4px; height:4px; animation-duration:4s;"></div>
-        <div class="star" style="top:70%; left:10%; width:8px; height:8px; animation-duration:5s;"></div>
-        <div class="star" style="top:50%; left:50%; width:5px; height:5px; animation-duration:3.5s;"></div>
-        <div class="star" style="top:85%; left:90%; width:7px; height:7px; animation-duration:4.5s;"></div>
+        <div class="star" style="top:15%; left:10%; width:6px; height:6px; animation-duration:3s;"></div>
+        <div class="star" style="top:25%; left:85%; width:4px; height:4px; animation-duration:4s;"></div>
+        <div class="star" style="top:75%; left:15%; width:8px; height:8px; animation-duration:5s;"></div>
+        <div class="star" style="top:55%; left:45%; width:5px; height:5px; animation-duration:3.5s;"></div>
+        <div class="star" style="top:80%; left:95%; width:7px; height:7px; animation-duration:4.5s;"></div>
     </div>
 
     <h2>Nos Abonnements Étoilés</h2>
@@ -176,7 +193,7 @@
             <a href="#" class="btn-card">Choisir l'offre Plume</a>
         </div>
 
-        <div class="card" style="border: 2px solid var(--or);">
+        <div class="card" style="border: 3px solid var(--or);">
             <h3>Manuscrit</h3>
             <span class="price">9€<small>/mois</small></span>
             <ul>
