@@ -5,76 +5,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Console Royale | Au-delà des Pages</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
-        :root { 
-            --rose: #DE3566; --or: #D4AF37; --noir: #1a1a1a; 
-            --vert: #728A2C; --gris: #f4f4f4; --blanc: #ffffff;
-        }
-
-        body { 
-            margin: 0; font-family: 'Poppins', sans-serif; background: #f8f9fa; color: var(--noir);
-            display: flex; min-height: 100vh;
-        }
+        :root { --rose: #DE3566; --or: #D4AF37; --noir: #1a1a1a; --vert: #728A2C; --blanc: #ffffff; }
+        body { margin: 0; font-family: 'Poppins', sans-serif; background: #f8f9fa; color: var(--noir); display: flex; min-height: 100vh; }
 
         /* --- SIDEBAR --- */
-        .sidebar {
-            width: 280px; background: var(--noir); color: white;
-            padding: 30px 20px; position: fixed; height: 100vh;
-            border-right: 3px solid var(--or);
-        }
+        .sidebar { width: 280px; background: var(--noir); color: white; padding: 30px 20px; position: fixed; height: 100vh; border-right: 3px solid var(--or); z-index: 100; }
         .sidebar h2 { font-family: 'Cinzel Decorative'; color: var(--or); font-size: 1.2rem; margin-bottom: 40px; text-align: center; }
-        .nav-link {
-            display: block; color: #bbb; text-decoration: none; padding: 12px 15px;
-            margin-bottom: 10px; border-radius: 8px; transition: 0.3s; font-size: 0.9rem;
-        }
-        .nav-link:hover, .nav-link.active { background: var(--rose); color: white; font-weight: 600; }
+        .nav-link { display: block; color: #bbb; text-decoration: none; padding: 12px 15px; margin-bottom: 10px; border-radius: 8px; font-size: 0.9rem; transition: 0.3s; }
+        .nav-link:hover, .nav-link.active { background: var(--rose); color: white; }
 
-        /* --- MAIN CONTENT --- */
         .main-content { margin-left: 280px; width: calc(100% - 280px); padding: 40px; }
-
         .header-admin { display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px; }
-        .header-admin h1 { font-family: 'Cinzel Decorative'; font-size: 2rem; margin: 0; }
+        h1, h2 { font-family: 'Cinzel Decorative'; }
 
-        /* --- STATS CARDS --- */
+        /* --- STATS DYNAMIQUES --- */
         .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-bottom: 40px; }
-        .stat-card {
-            background: white; padding: 25px; border-radius: 20px; 
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05); border-left: 5px solid var(--or);
-        }
-        .stat-card h3 { margin: 0; font-size: 0.8rem; color: #888; text-transform: uppercase; }
+        .stat-card { background: white; padding: 25px; border-radius: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); border-left: 5px solid var(--or); }
+        .stat-card h3 { margin: 0; font-size: 0.7rem; color: #888; text-transform: uppercase; letter-spacing: 1px; }
         .stat-card .value { font-size: 1.8rem; font-weight: 800; color: var(--rose); margin: 10px 0; }
-        .stat-card .trend { font-size: 0.75rem; color: var(--vert); font-weight: 600; }
 
-        /* --- SECTION CONTENU LONG --- */
+        /* --- SECTIONS --- */
         .admin-section { background: white; border-radius: 25px; padding: 30px; margin-bottom: 30px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); }
-        .admin-section h2 { font-family: 'Cinzel Decorative'; font-size: 1.4rem; color: var(--or); margin-top: 0; border-bottom: 1px solid #eee; padding-bottom: 15px; }
+        
+        /* --- FORMULAIRES --- */
+        .form-box { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; background: #fdfbfb; padding: 20px; border-radius: 15px; border: 1px solid #eee; margin-bottom: 20px; }
+        .form-group { display: flex; flex-direction: column; gap: 5px; }
+        label { font-size: 0.75rem; font-weight: 700; color: var(--or); text-transform: uppercase; }
+        input, select { padding: 10px; border-radius: 8px; border: 1px solid #ddd; }
+        .btn-add { background: var(--noir); color: white; border: none; padding: 12px; border-radius: 8px; cursor: pointer; font-weight: 600; }
+        .btn-add:hover { background: var(--rose); }
 
         /* --- TABLEAUX --- */
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th { text-align: left; padding: 15px; font-size: 0.8rem; color: #888; text-transform: uppercase; border-bottom: 2px solid #f4f4f4; }
-        td { padding: 15px; font-size: 0.9rem; border-bottom: 1px solid #f4f4f4; }
-        .status { padding: 5px 12px; border-radius: 20px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; }
-        .status.paid { background: #e8f5e9; color: #2e7d32; }
-        .status.pending { background: #fff3e0; color: #ef6c00; }
-
-        /* --- FORMULAIRE AJOUT --- */
-        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        .form-group { display: flex; flex-direction: column; gap: 8px; margin-bottom: 15px; }
-        input, select, textarea { padding: 12px; border-radius: 10px; border: 1px solid #ddd; font-family: inherit; }
-        .btn-royal { 
-            background: var(--noir); color: white; border: none; padding: 15px 30px; 
-            border-radius: 10px; cursor: pointer; font-weight: 700; transition: 0.3s;
-        }
-        .btn-royal:hover { background: var(--rose); transform: translateY(-2px); }
-
-        /* --- CALCULATRICE ÉDITORIALE --- */
-        .calc-box { background: #1a1a1a; color: white; padding: 30px; border-radius: 20px; margin-top: 20px; }
-        .calc-res { font-size: 1.2rem; color: var(--or); font-weight: 700; margin-top: 15px; padding-top: 15px; border-top: 1px dashed #444; }
-
-        /* --- GRAPH --- */
-        .chart-container { height: 300px; margin-top: 20px; }
-
+        table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        th { text-align: left; padding: 12px; font-size: 0.75rem; color: #888; border-bottom: 2px solid #f4f4f4; }
+        td { padding: 12px; font-size: 0.85rem; border-bottom: 1px solid #f4f4f4; }
+        .empty-msg { text-align: center; color: #bbb; padding: 20px; font-style: italic; }
+        
+        .delete-btn { color: #ff4d4d; cursor: pointer; border: none; background: none; font-size: 1.1rem; }
     </style>
 </head>
 <body>
@@ -83,185 +51,187 @@
     <h2>ADP ADMIN</h2>
     <nav>
         <a href="#stats" class="nav-link active">📊 Vue d'ensemble</a>
-        <a href="#ventes" class="nav-link">💰 Ventes & Commissions</a>
-        <a href="#membres" class="nav-link">👥 Abonnés Privés</a>
-        <a href="#fiches" class="nav-link">📂 Gestion des Fiches</a>
-        <a href="#auteurs" class="nav-link">✍️ Suivi Auteurs</a>
-        <a href="#calcul" class="nav-link">🧮 Calculatrice Profits</a>
+        <a href="#ventes" class="nav-link">💰 Encaisser une Vente</a>
+        <a href="#membres" class="nav-link">👥 Gérer les Abonnés</a>
+        <a href="#fiches" class="nav-link">📂 Publier une Fiche</a>
     </nav>
-    <div style="position: absolute; bottom: 30px; left: 30px; font-size: 0.7rem; color: #555;">
-        V 2.1 - Espace Elisa
-    </div>
 </aside>
 
 <main class="main-content">
     <header class="header-admin">
-        <h1>Tableau de Bord Royal</h1>
-        <div class="user-pill" style="background: white; padding: 10px 20px; border-radius: 50px; border: 1px solid #ddd; font-weight: 600;">
-            👑 Elisa | Éditrice
-        </div>
+        <h1>Console de Gestion Royale</h1>
+        <button onclick="resetAll()" style="font-size: 0.6rem; opacity: 0.5; border: none; background: none; cursor: pointer;">Réinitialiser tout</button>
     </header>
 
-    <section id="stats" class="stats-grid">
+    <section class="stats-grid">
         <div class="stat-card">
-            <h3>Chiffre d'Affaires (Mensuel)</h3>
-            <div class="value">2 450,00 €</div>
-            <div class="trend">↑ +12% vs mois dernier</div>
+            <h3>CA Total (Part Éditrice)</h3>
+            <div class="value" id="stat-ca">0.00 €</div>
         </div>
         <div class="stat-card">
             <h3>Abonnés Actifs</h3>
-            <div class="value">128</div>
-            <div class="trend">↑ 14 nouveaux ce mois</div>
+            <div class="value" id="stat-subs">0</div>
         </div>
         <div class="stat-card">
             <h3>Livres Vendus</h3>
-            <div class="value">342</div>
-            <div class="trend">Dont 156 via Payhip</div>
-        </div>
-        <div class="stat-card">
-            <h3>Taux de Rétention</h3>
-            <div class="value">94%</div>
-            <div class="trend">Excellente fidélité</div>
+            <div class="value" id="stat-books">0</div>
         </div>
     </section>
 
     <section id="ventes" class="admin-section">
-        <h2>💰 Registre des Ventes & Commissions</h2>
+        <h2>💰 Enregistrer une nouvelle vente</h2>
+        <div class="form-box">
+            <div class="form-group">
+                <label>Livre</label>
+                <input type="text" id="v-titre" placeholder="Titre du livre">
+            </div>
+            <div class="form-group">
+                <label>Canal de vente</label>
+                <select id="v-canal">
+                    <option value="0.8">Site Web (80%)</option>
+                    <option value="0.25">Amazon (25%)</option>
+                    <option value="0.3">Autres (30%)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Prix de vente (€)</label>
+                <input type="number" id="v-prix" step="0.01">
+            </div>
+            <button class="btn-add" onclick="ajouterVente()">Valider la vente</button>
+        </div>
+
         <table>
             <thead>
                 <tr>
-                    <th>Date</th>
-                    <th>Livre / Produit</th>
+                    <th>Livre</th>
                     <th>Canal</th>
                     <th>Prix Brut</th>
-                    <th>Part Maëlys (Net)</th>
-                    <th>Statut</th>
+                    <th>Ta Part (Net)</th>
+                    <th>Action</th>
                 </tr>
             </thead>
-            <tbody>
-                <tr>
-                    <td>28/03/2026</td>
-                    <td>Héritage Royal</td>
-                    <td>Site Web (80%)</td>
-                    <td>22,00 €</td>
-                    <td>17,60 €</td>
-                    <td><span class="status paid">Versé</span></td>
-                </tr>
-                <tr>
-                    <td>27/03/2026</td>
-                    <td>37 degrés sous la peau</td>
-                    <td>Amazon (25%)</td>
-                    <td>18,00 €</td>
-                    <td>4,50 €</td>
-                    <td><span class="status pending">En attente</span></td>
-                </tr>
-                <tr>
-                    <td>25/03/2026</td>
-                    <td>Pack Ambassadeur</td>
-                    <td>Postale</td>
-                    <td>45,00 €</td>
-                    <td>36,00 €</td>
-                    <td><span class="status paid">Versé</span></td>
-                </tr>
-            </tbody>
+            <tbody id="table-ventes"></tbody>
         </table>
     </section>
 
-    <section id="fiches" class="admin-section">
-        <h2>📂 Ajouter une Fiche au Sanctuaire</h2>
-        <div class="form-grid">
+    <section id="membres" class="admin-section">
+        <h2>👥 Inscrire un nouvel abonné</h2>
+        <div class="form-box">
             <div class="form-group">
-                <label>Titre de la ressource</label>
-                <input type="text" id="fTitle" placeholder="Ex: Le rythme du récit">
+                <label>Prénom Membre</label>
+                <input type="text" id="m-nom" placeholder="Ex: Pauline">
             </div>
             <div class="form-group">
-                <label>Niveau d'abonnement</label>
-                <select id="fLevel">
-                    <option value="Plume">Plume (4€)</option>
-                    <option value="Manuscrit">Manuscrit (9€)</option>
-                    <option value="Auteur">Auteur Pro (19.99€)</option>
+                <label>Formule</label>
+                <select id="m-abo">
+                    <option value="4">Plume (4€)</option>
+                    <option value="9">Manuscrit (9€)</option>
+                    <option value="19.99">Auteur (19.99€)</option>
                 </select>
             </div>
+            <button class="btn-add" onclick="ajouterMembre()">Inscrire le membre</button>
         </div>
-        <div class="form-group">
-            <label>Lien du PDF / Document</label>
-            <input type="url" id="fUrl" placeholder="Lien Google Drive ou DropBox">
-        </div>
-        <button class="btn-royal" onclick="addFiche()">Publier la fiche</button>
-    </section>
 
-    <section id="auteurs" class="admin-section">
-        <h2>✍️ Partenariats & Projets Auteurs</h2>
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px;">
-            <div>
-                <h3>Auteurs sous Contrat</h3>
-                <ul style="list-style: none; padding: 0;">
-                    <li style="padding: 10px; border-bottom: 1px solid #eee;">📖 <b>Julien Florin</b> - Projet "Marnay 1851"</li>
-                    <li style="padding: 10px; border-bottom: 1px solid #eee;">📖 <b>Caroline Arno</b> - "Revivre l'espoir..."</li>
-                    <li style="padding: 10px; border-bottom: 1px solid #eee;">📖 <b>Maurane Kientz</b> - "Azurinya T1"</li>
-                </ul>
-            </div>
-            <div class="calc-box">
-                <h3>🧮 Calculatrice de Marges</h3>
-                <div class="form-group">
-                    <label>Prix de vente TTC (€)</label>
-                    <input type="number" id="pBrut" value="20" oninput="calculerPart()">
-                </div>
-                <div id="calcResult" class="calc-res">
-                    Part Éditrice (80%) : 16.00 €
-                </div>
-                <p style="font-size: 0.7rem; color: #888; margin-top: 10px;">Basé sur le tarif site web (commission 20% frais inclus).</p>
-            </div>
-        </div>
-    </section>
-
-    <section class="admin-section">
-        <h2>📈 Croissance des Abonnements</h2>
-        <div class="chart-container">
-            <canvas id="growthChart"></canvas>
-        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Membre</th>
+                    <th>Abonnement</th>
+                    <th>Revenu /mois</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="table-membres"></tbody>
+        </table>
     </section>
 
 </main>
 
 <script>
-    // --- Graphique de croissance ---
-    const ctx = document.getElementById('growthChart').getContext('2d');
-    new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: ['Jan', 'Fév', 'Mar', 'Avr', 'Mai', 'Juin'],
-            datasets: [{
-                label: 'Abonnés cumulés',
-                data: [45, 68, 92, 110, 128, 145],
-                borderColor: '#DE3566',
-                backgroundColor: 'rgba(222, 53, 102, 0.1)',
-                fill: true,
-                tension: 0.4
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            plugins: { legend: { display: false } }
-        }
-    });
+    // --- INITIALISATION DES DONNÉES ---
+    let ventes = JSON.parse(localStorage.getItem('adp_ventes')) || [];
+    let membres = JSON.parse(localStorage.getItem('adp_membres')) || [];
 
-    // --- Calculatrice ---
-    function calculerPart() {
-        const prix = document.getElementById('pBrut').value;
-        const part = (prix * 0.8).toFixed(2);
-        document.getElementById('calcResult').innerText = `Part Éditrice (80%) : ${part} €`;
+    function updateUI() {
+        // Remplir le tableau des ventes
+        const tVentes = document.getElementById('table-ventes');
+        tVentes.innerHTML = ventes.length ? "" : "<tr><td colspan='5' class='empty-msg'>Aucune vente enregistrée.</td></tr>";
+        let totalCAVentes = 0;
+        
+        ventes.forEach((v, index) => {
+            const partNet = (v.prix * v.ratio).toFixed(2);
+            totalCAVentes += parseFloat(partNet);
+            tVentes.innerHTML += `
+                <tr>
+                    <td>${v.titre}</td>
+                    <td>${(v.ratio*100)}%</td>
+                    <td>${v.prix} €</td>
+                    <td><b>${partNet} €</b></td>
+                    <td><button class="delete-btn" onclick="supprimerVente(${index})">🗑️</button></td>
+                </tr>
+            `;
+        });
+
+        // Remplir le tableau des membres
+        const tMembres = document.getElementById('table-membres');
+        tMembres.innerHTML = membres.length ? "" : "<tr><td colspan='4' class='empty-msg'>Aucun abonné pour le moment.</td></tr>";
+        let totalCAMensuel = 0;
+
+        membres.forEach((m, index) => {
+            totalCAMensuel += parseFloat(m.prix);
+            tMembres.innerHTML += `
+                <tr>
+                    <td>${m.nom}</td>
+                    <td>${m.formule}</td>
+                    <td>${m.prix} €</td>
+                    <td><button class="delete-btn" onclick="supprimerMembre(${index})">🗑️</button></td>
+                </tr>
+            `;
+        });
+
+        // Mettre à jour les compteurs
+        document.getElementById('stat-ca').innerText = (totalCAVentes + totalCAMensuel).toFixed(2) + " €";
+        document.getElementById('stat-subs').innerText = membres.length;
+        document.getElementById('stat-books').innerText = ventes.length;
+
+        // Sauvegarde
+        localStorage.setItem('adp_ventes', JSON.stringify(ventes));
+        localStorage.setItem('adp_membres', JSON.stringify(membres));
     }
 
-    // --- Gestion des fiches (Simulée) ---
-    function addFiche() {
-        const t = document.getElementById('fTitle').value;
-        if(t) {
-            alert(`La fiche "${t}" est maintenant visible par les membres ${document.getElementById('fLevel').value} !`);
-            document.getElementById('fTitle').value = "";
-        }
+    // --- ACTIONS ---
+    function ajouterVente() {
+        const titre = document.getElementById('v-titre').value;
+        const prix = document.getElementById('v-prix').value;
+        const ratio = document.getElementById('v-canal').value;
+
+        if(!titre || !prix) return alert("Remplis le titre et le prix !");
+
+        ventes.push({ titre, prix: parseFloat(prix), ratio: parseFloat(ratio) });
+        updateUI();
+        document.getElementById('v-titre').value = "";
+        document.getElementById('v-prix').value = "";
     }
+
+    function ajouterMembre() {
+        const nom = document.getElementById('m-nom').value;
+        const select = document.getElementById('m-abo');
+        const prix = select.value;
+        const formule = select.options[select.selectedIndex].text;
+
+        if(!nom) return alert("Remplis le nom du membre !");
+
+        membres.push({ nom, prix, formule });
+        updateUI();
+        document.getElementById('m-nom').value = "";
+    }
+
+    function supprimerVente(i) { ventes.splice(i, 1); updateUI(); }
+    function supprimerMembre(i) { membres.splice(i, 1); updateUI(); }
+    function resetAll() { if(confirm("Effacer toutes les données ?")) { ventes=[]; membres=[]; updateUI(); } }
+
+    // Lancement au chargement
+    updateUI();
 </script>
 
 </body>
