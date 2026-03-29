@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Au-delà des Pages | Header Royal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Playfair+Display:ital,wght@0,700;1,700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root { 
+            --rose: #DE3566; --vert: #728A2C; --noir: #1a1a1a;
+            --or: #D4AF37; --diamant: #e0f7fa;
+        }
+
+        body { margin: 0; font-family: 'Poppins', sans-serif; }
+
+        /* --- ANIMATIONS --- */
+        @keyframes floatCrown {
+            0% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-5px) rotate(5deg); }
+            100% { transform: translateY(0) rotate(0deg); }
+        }
+
+        @keyframes sparkle {
+            0%, 100% { opacity: 0.5; filter: brightness(1); }
+            50% { opacity: 1; filter: brightness(1.5) drop-shadow(0 0 10px #fff); }
+        }
+
+        /* --- LE HEADER ROYAL --- */
+        header {
+            background: #fff;
+            padding: 20px 2%;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 3px double var(--or);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        /* --- TITRE MAJUSCULE & CERCLES --- */
+        .logo-box {
+            position: relative;
+            padding: 10px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Les traits en cercle autour du titre */
+        .logo-box::before, .logo-box::after {
+            content: '';
+            position: absolute;
+            border: 2px solid var(--or);
+            border-radius: 50%;
+            opacity: 0.3;
+        }
+        .logo-box::before { width: 120%; height: 180%; top: -40%; left: -10%; border-style: double; }
+        .logo-box::after { width: 100%; height: 140%; top: -20%; left: 0%; border-style: dashed; }
+
+        .logo-royal {
+            font-family: 'Cinzel Decorative', serif;
+            font-size: 1.8rem;
+            color: var(--rose);
+            text-transform: uppercase;
+            text-decoration: none;
+            letter-spacing: 4px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 5;
+        }
+
+        /* --- MENU --- */
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 15px;
+            margin: 0;
+            padding: 0;
+            align-items: center;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--noir);
+            font-weight: 600;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: 0.3s;
+            padding: 5px 0;
+            border-bottom: 2px solid transparent;
+        }
+
+        nav ul li a:hover {
+            color: var(--or);
+            border-bottom: 2px solid var(--rose);
+        }
+
+        /* --- BOUTON COURONNE DIAMANT --- */
+        .btn-membre-royal {
+            background: linear-gradient(135deg, #f3e5f5, #ffffff);
+            color: var(--rose) !important;
+            padding: 12px 25px;
+            border-radius: 50px;
+            border: 2px solid var(--or);
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+            position: relative;
+            overflow: hidden;
+            transition: 0.4s;
+        }
+
+        .btn-membre-royal:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5);
+        }
+
+        /* La Couronne Dorée */
+        .crown {
+            font-size: 1.4rem;
+            display: inline-block;
+            animation: floatCrown 3s ease-in-out infinite;
+            filter: drop-shadow(0 0 2px var(--or));
+        }
+
+        /* Effet Diamant Scintillant */
+        .diamond-sparkle {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            color: var(--diamant);
+            font-size: 0.8rem;
+            animation: sparkle 2s infinite;
+        }
+
+        .btn-membre-royal::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.8), transparent);
+            transform: rotate(45deg);
+            transition: 0.8s;
+        }
+        .btn-membre-royal:hover::after {
+            left: 100%;
+        }
+
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="header-container">
+        <div class="logo-box">
+            <a href="#" class="logo-royal">Au-delà des Pages</a>
+        </div>
+
+        <nav>
+            <ul>
+                <li><a href="#">Accueil</a></li>
+                <li><a href="#">Boutique</a></li>
+                <li><a href="#">Couvertures</a></li>
+                <li><a href="#">Services</a></li>
+                <li><a href="#">Contact</a></li>
+                <li><a href="#">Blog</a></li>
+                <li><a href="#">Abonnements</a></li>
+                <li><a href="#">Information</a></li>
+                <li>
+                    <a href="#" class="btn-membre-royal">
+                        <span class="crown">👑</span>
+                        ESPACE MEMBRE
+                        <span class="diamond-sparkle">✨</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+</body>
+</html>
