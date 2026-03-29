@@ -2,26 +2,70 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Au-delà des Pages 🐾</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Au-delà des Pages | Accueil</title>
     <style>
-        :root {
-            --rose: #DE3566; --pale: #FF98AE; --orange: #FF9B3D;
-            --jaune: #FCCC60; --vert: #728A2C;
+        :root { 
+            --rose: #DE3566; --pale: #FF98AE; --orange: #FF9B3D; 
+            --jaune: #FCCC60; --vert: #728A2C; --noir: #333;
         }
-        body { font-family: sans-serif; margin: 0; text-align: center; background: #f9f9f9; color: #333; }
-        header { background: white; padding: 20px; border-bottom: 5px solid var(--vert); }
-        .hero { background: linear-gradient(135deg, var(--pale), var(--jaune)); padding: 60px 20px; color: white; }
-        .btn { background: var(--rose); color: white; padding: 15px 30px; border-radius: 50px; text-decoration: none; display: inline-block; margin-top: 20px; font-weight: bold; }
-        .chat { font-size: 80px; margin: 20px; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; background: #fff; color: var(--noir); line-height: 1.6; }
+        
+        /* MENU DE NAVIGATION */
+        nav { 
+            background: white; padding: 15px 2%; display: flex; justify-content: space-between; align-items: center;
+            position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .logo { font-size: 1.2rem; font-weight: bold; color: var(--vert); display: flex; align-items: center; gap: 5px; text-decoration: none; }
+        
+        nav ul { list-style: none; display: flex; gap: 12px; margin: 0; padding: 0; align-items: center; }
+        nav ul li a { text-decoration: none; color: var(--noir); font-weight: 500; font-size: 0.85rem; transition: 0.3s; }
+        nav ul li a:hover { color: var(--rose); }
+
+        .btn-membre { 
+            background: var(--rose); color: white !important; padding: 8px 12px; border-radius: 5px; 
+        }
+
+        /* ACCUEIL (HERO) */
+        .hero { 
+            height: 70vh; display: flex; flex-direction: column; justify-content: center; align-items: center;
+            background: linear-gradient(135deg, var(--pale), var(--jaune)); color: white; text-align: center; padding: 0 20px;
+        }
+        .hero h1 { font-size: 3rem; margin-bottom: 10px; }
+        .hero p { font-size: 1.1rem; max-width: 600px; margin-bottom: 25px; }
+
+        .btn-main { 
+            background: white; color: var(--rose); padding: 12px 30px; border-radius: 50px; 
+            text-decoration: none; font-weight: bold; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .chat-container { font-size: 80px; }
     </style>
 </head>
 <body>
-    <header><h1>Au-delà des Pages 🐾</h1></header>
-    <section class="hero">
-        <h2>L'accompagnement qui donne du peps à vos écrits !</h2>
-        <p>Éditrice • Librairie • Coaching Auteurs</p>
-        <a href="https://payhip.com/ton-lien" class="btn">Voir mes Services</a>
-    </section>
-    <div class="chat">🐱</div>
+
+<nav>
+    <a href="#" class="logo">Au-delà des Pages 🐾</a>
+    <ul>
+        <li><a href="#">Accueil</a></li>
+        <li><a href="#">Boutique</a></li>
+        <li><a href="#">Couvertures</a></li>
+        <li><a href="#">Services</a></li>
+        <li><a href="#">Contact</a></li>
+        <li><a href="#">Blog</a></li>
+        <li><a href="#">Abonnements</a></li>
+        <li><a href="#">Auteur</a></li>
+        <li><a href="#">Information</a></li>
+        <li><a href="#" class="btn-membre">Espace Membre</a></li>
+    </ul>
+</nav>
+
+<section class="hero">
+    <div class="chat-container">🐱</div>
+    <h1>Au-delà des Pages</h1>
+    <p>L'accompagnement qui donne du peps à vos écrits !</p>
+    <a href="#" class="btn-main">Découvrir l'univers</a>
+</section>
+
 </body>
 </html>
