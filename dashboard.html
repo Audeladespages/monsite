@@ -1,3 +1,7 @@
+// Sécurité : Si tu n'es pas connectée, retour à la case départ !
+if (sessionStorage.getItem('admin_auth') !== 'true') {
+    window.location.href = "login-admin.html";
+}
 <!DOCTYPE html>
 <html lang="fr">
 <head>
